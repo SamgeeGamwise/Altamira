@@ -1,4 +1,10 @@
 package com.samwise.altamira.common;
 
-public class ApiError {
+import org.springframework.http.HttpStatus;
+
+public record ApiError(
+        HttpStatus code,
+        String field,
+        String message
+) {
 }
