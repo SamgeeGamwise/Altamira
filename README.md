@@ -35,33 +35,33 @@ Altamira is a RESTful banking API built with Java 21 and Spring Boot. It is desi
 ### Customers
 
 ```text
-POST   /customers
-GET    /customers/{customerId}
-DELETE /customers/{customerId}
+POST   /api/customers
+GET    /api/customers/{customerId}
+DELETE /api/customers/{customerId}
 ```
 
 ### Accounts
 
 ```text
-POST   /accounts
-GET    /accounts/{accountId}
-DELETE /accounts/{accountId}
-GET    /accounts/{accountId}/transactions
+POST   /api/accounts
+GET    /api/accounts/{accountId}
+DELETE /api/accounts/{accountId}
+GET    /api/accounts/{accountId}/transactions
 ```
 
 ### Transactions
 
 ```text
-POST   /accounts/{accountId}/deposits
-POST   /accounts/{accountId}/withdrawals
-POST   /accounts/{fromAccountId}/transfers
-GET    /transactions/{transactionId}
+POST   /api/accounts/{accountId}/deposits
+POST   /api/accounts/{accountId}/withdrawals
+POST   /api/accounts/{fromAccountId}/transfers
+GET    /api/transactions/{transactionId}
 ```
 
 ### Health
 
 ```text
-GET /actuator/health
+GET /api/health
 ```
 
 ## Domain Model
@@ -213,7 +213,7 @@ http://localhost:8080
 Check health:
 
 ```text
-GET http://localhost:8080/actuator/health
+GET http://localhost:8080/api/health
 ```
 
 ## Example Requests
@@ -221,7 +221,7 @@ GET http://localhost:8080/actuator/health
 ### Create Customer
 
 ```http
-POST /customers
+POST /api/customers
 Content-Type: application/json
 ```
 
@@ -237,7 +237,7 @@ Content-Type: application/json
 ### Create Account
 
 ```http
-POST /accounts
+POST /api/accounts
 Content-Type: application/json
 ```
 
@@ -251,7 +251,7 @@ Content-Type: application/json
 ### Create Deposit
 
 ```http
-POST /accounts/{accountId}/deposits
+POST /api/accounts/{accountId}/deposits
 Content-Type: application/json
 ```
 
@@ -265,7 +265,7 @@ Content-Type: application/json
 ### Create Withdrawal
 
 ```http
-POST /accounts/{accountId}/withdrawals
+POST /api/accounts/{accountId}/withdrawals
 Content-Type: application/json
 ```
 
@@ -279,7 +279,7 @@ Content-Type: application/json
 ### Get Account Transactions
 
 ```http
-GET /accounts/{accountId}/transactions
+GET /api/accounts/{accountId}/transactions
 ```
 
 ## Development Notes
