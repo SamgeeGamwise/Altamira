@@ -1,4 +1,4 @@
-package com.samwise.altamira.customer;
+package com.samwise.altamira.customer.dto;
 
 public class CustomerLoginRequest {
     private String email;

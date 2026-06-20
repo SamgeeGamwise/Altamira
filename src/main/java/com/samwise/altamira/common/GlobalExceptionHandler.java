@@ -1,9 +1,11 @@
 package com.samwise.altamira.common;
 
+import com.samwise.altamira.common.exceptions.BadRequestException;
+import com.samwise.altamira.common.exceptions.ConflictException;
+import com.samwise.altamira.common.exceptions.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,6 +37,40 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(
                         "Validation failed",
                         errors
+                ));
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleNotFoundException(
+            NotFoundException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error(
+                        "Resource not found",
+                        List.of(new ApiError(
+                                HttpStatus.NOT_FOUND,
+                                null,
+                                ex.getMessage()
+                        ))
+                ));
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ApiResponse<Void>> handleConflictException(
+            ConflictException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ApiResponse.error(
+                        "Conflicting data",
+                        List.of(new ApiError(
+                                HttpStatus.CONFLICT,
+                                ex.getField(),
+                                ex.getMessage()
+                        ))
                 ));
     }
 
@@ -74,6 +110,23 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(
                         "Validation failed",
                         errors
+                ));
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiResponse<Void>> handleBadRequestException(
+            BadRequestException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity
+                .badRequest()
+                .body(ApiResponse.error(
+                        "Bad request",
+                        List.of(new ApiError(
+                                HttpStatus.BAD_REQUEST,
+                                null,
+                                ex.getMessage()
+                        ))
                 ));
     }
 
